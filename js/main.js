@@ -1,6 +1,7 @@
-const verifyCookieClick = document.getElementById('cookie')
-const verifyBtnClick = document.getElementById('btn-cookie')
-const AlternateScreen = document.querySelector(".broken-cookie")
+const verifyCookieClickOnScreen1 = document.getElementById('cookie')
+const verifyBtnClickOnScreen2 = document.getElementById('btn-cookie')
+const alternateScreen = document.querySelector(".broken-cookie")
+const resetAnimation = document.querySelector(".broken-cookie span")
 
 const randomPhrasesList = [
   "A vida trará coisas boas se tiver paciência.",
@@ -9,13 +10,37 @@ const randomPhrasesList = [
 "Não importa o tamanho da montanha, ela não pode tapar o sol."
 ]
 
-console.log(randomPhrasesList[1])
 
-verifyCookieClick.addEventListener('click', (event) => {
-  AlternateScreen.classList.remove('hide')
+verifyCookieClickOnScreen1.addEventListener('click', (event) => {
+  alternateScreen.classList.remove('hide')
+
+  if(randomPhrasesDrawn == 0) {
+    alternateScreen.querySelector('p').innerText = `${randomPhrasesList[0]}`
+  }
+  if(randomPhrasesDrawn == 1) {
+    alternateScreen.querySelector('p').innerText = `${randomPhrasesList[1]}`
+  }
+  if(randomPhrasesDrawn == 2) {
+    alternateScreen.querySelector('p').innerText = `${randomPhrasesList[2]}`
+  }
+  if(randomPhrasesDrawn == 3) {
+    alternateScreen.querySelector('p').innerText = `${randomPhrasesList[3]}`
+  }
 })
 
-verifyBtnClick.addEventListener('click',(event) => {
-  AlternateScreen.classList.add('hide')
+verifyBtnClickOnScreen2.addEventListener('click',(event) => {
+  alternateScreen.classList.add('hide')
+  randomPhrasesDrawn = ramdomNumberInterval(0, 3)
+
+  resetAnimation.style.animationName = "none"
+
+  requestAnimationFrame( () => {
+    resetAnimation.style.animationName = ""
+  })
 })
 
+function ramdomNumberInterval(min,max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+let randomPhrasesDrawn = ramdomNumberInterval(0, 3)
